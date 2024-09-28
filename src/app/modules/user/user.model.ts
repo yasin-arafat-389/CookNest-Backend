@@ -1,4 +1,5 @@
-import mongoose, { Schema } from 'mongoose';
+/* eslint-disable @typescript-eslint/no-this-alias */
+import mongoose from 'mongoose';
 import bcrypt from 'bcrypt';
 import { TUser } from './user.interface';
 import config from '../../config';
@@ -28,18 +29,17 @@ const userSchema = new mongoose.Schema<TUser>(
     },
     profilePicture: {
       type: String,
-      default: 'https://i.ibb.co/HN9NtYY/user.png',
-    },
-
-    role: { type: String, enum: ['user', 'admin'], default: 'user' },
-
-    followers: {
-      type: Schema.Types.ObjectId,
       required: true,
-      ref: 'Followers',
     },
-
-    recipes: { type: Schema.Types.ObjectId, required: true, ref: 'Recipe' },
+    role: { type: String, enum: ['user', 'admin'], default: 'user' },
+    followers: {
+      type: [String],
+      default: [],
+    },
+    following: {
+      type: [String],
+      default: [],
+    },
   },
   {
     timestamps: true,

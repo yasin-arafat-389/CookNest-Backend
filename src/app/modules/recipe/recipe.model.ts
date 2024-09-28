@@ -1,8 +1,12 @@
-import mongoose, { Schema } from 'mongoose';
+import mongoose from 'mongoose';
 import { TRecipe } from './recipe.interface';
 
 const RecipeSchema = new mongoose.Schema<TRecipe>(
   {
+    user: {
+      type: String,
+      required: true,
+    },
     title: {
       type: String,
       required: true,
@@ -11,7 +15,32 @@ const RecipeSchema = new mongoose.Schema<TRecipe>(
       type: String,
       required: true,
     },
-    metadata: { type: Schema.Types.ObjectId, required: true, ref: 'Metadata' },
+    upvote: {
+      type: [String],
+      required: true,
+      default: [],
+    },
+    downvote: {
+      type: [String],
+      required: true,
+      default: [],
+    },
+    comments: {
+      type: [{ id: String, name: String, comment: String }],
+      required: true,
+      default: [],
+    },
+    rating: Number,
+    isDeleted: {
+      type: Boolean,
+      required: true,
+      default: false,
+    },
+    isPremium: {
+      type: Boolean,
+      required: true,
+      default: false,
+    },
   },
   {
     timestamps: true,

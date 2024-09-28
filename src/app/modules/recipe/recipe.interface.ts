@@ -1,7 +1,11 @@
-import { ObjectId } from 'mongoose';
-
 export type TRecipe = {
+  user: string;
   title: string;
   image: string;
-  metadata: ObjectId;
+  upvote: string[];
+  downvote: string[];
+  comments: [{ id: string; name: string; comment: string }];
+  rating: number;
+  isDeleted: boolean;
+  isPremium: boolean;
 };

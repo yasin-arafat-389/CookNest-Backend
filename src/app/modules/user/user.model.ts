@@ -32,9 +32,14 @@ const userSchema = new mongoose.Schema<TUser>(
     },
 
     role: { type: String, enum: ['user', 'admin'], default: 'user' },
-    followers: [{ type: Schema.Types.ObjectId, ref: 'Followers' }],
-    following: [{ type: Schema.Types.ObjectId, ref: 'Followers' }],
-    recipes: [{ type: Schema.Types.ObjectId, ref: 'Recipe' }],
+
+    followers: {
+      type: Schema.Types.ObjectId,
+      required: true,
+      ref: 'Followers',
+    },
+
+    recipes: { type: Schema.Types.ObjectId, required: true, ref: 'Recipe' },
   },
   {
     timestamps: true,

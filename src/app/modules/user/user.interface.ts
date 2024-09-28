@@ -7,8 +7,8 @@ export type TUser = {
   role: string;
   profilePicture: string;
   bio: string;
-  followers: ObjectId[];
-  following: ObjectId[];
-  recipes: ObjectId[];
+  followers: ObjectId;
+  following: ObjectId;
+  recipes: ObjectId;
   premiumMembership: boolean;
 };

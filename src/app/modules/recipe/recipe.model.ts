@@ -15,6 +15,10 @@ const RecipeSchema = new mongoose.Schema<TRecipe>(
       type: String,
       required: true,
     },
+    content: {
+      type: String,
+      required: true,
+    },
     upvote: {
       type: [String],
       required: true,
@@ -26,11 +30,17 @@ const RecipeSchema = new mongoose.Schema<TRecipe>(
       default: [],
     },
     comments: {
-      type: [{ id: String, name: String, comment: String }],
+      type: [
+        { id: String, name: String, profilePicture: String, comment: String },
+      ],
       required: true,
       default: [],
     },
-    rating: Number,
+    rating: {
+      type: [{ id: String, rating: Number }],
+      required: true,
+      default: [],
+    },
     isDeleted: {
       type: Boolean,
       required: true,

@@ -32,6 +32,8 @@ const login = async (payload: TLoginUser) => {
     role: user.role,
     premiumMembership: user.premiumMembership,
     userId: user._id,
+    profilePicture: user.profilePicture,
+    name: user.name,
   };
 
   const accessToken = createToken(

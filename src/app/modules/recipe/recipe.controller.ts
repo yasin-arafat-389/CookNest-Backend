@@ -12,6 +12,64 @@ const createRecipe: RequestHandler = async (req, res, next) => {
   }
 };
 
+const upvoteRecipe: RequestHandler = async (req, res, next) => {
+  try {
+    const result = await RecipeServices.upvoteRecipe(
+      req.params.recipeId,
+      req.user,
+    );
+
+    sendResponse(res, result, 'Recipe has been upvotted');
+  } catch (error) {
+    next(error);
+  }
+};
+
+const downvoteRecipe: RequestHandler = async (req, res, next) => {
+  try {
+    const result = await RecipeServices.downvoteRecipe(
+      req.params.recipeId,
+      req.user,
+    );
+
+    sendResponse(res, result, 'Recipe has been downvotted');
+  } catch (error) {
+    next(error);
+  }
+};
+
+const rateRecipe: RequestHandler = async (req, res, next) => {
+  try {
+    const result = await RecipeServices.rateRecipe(
+      req.params.recipeId,
+      req.user,
+      req.body.rating,
+    );
+
+    sendResponse(res, result, 'Recipe has been rated');
+  } catch (error) {
+    next(error);
+  }
+};
+
+const commentRecipe: RequestHandler = async (req, res, next) => {
+  try {
+    const result = await RecipeServices.commentRecipe(
+      req.params.recipeId,
+      req.user,
+      req.body.comment,
+    );
+
+    sendResponse(res, result, 'Comment has been added');
+  } catch (error) {
+    next(error);
+  }
+};
+
 export const RecipeControllers = {
   createRecipe,
+  upvoteRecipe,
+  downvoteRecipe,
+  rateRecipe,
+  commentRecipe,
 };

@@ -1,9 +1,24 @@
 import { JwtPayload } from 'jsonwebtoken';
 import { TRecipe } from './recipe.interface';
 import RecipeModel from './recipe.model';
+import UserModel from '../user/user.model';
 
 const createRecipe = async (payload: TRecipe, user: JwtPayload) => {
+  const userRecord = await UserModel.findById(user.userId);
+
+  if (!userRecord) {
+    throw new Error('User not found');
+  }
+
+  if (userRecord.isBlocked) {
+    throw new Error('Your account has been blocked!');
+  }
+
   payload.user = user.userId;
+
+  if (payload.isPremium) {
+    payload.isPremium = true;
+  }
 
   const result = await RecipeModel.create(payload);
   return result;
@@ -51,13 +66,10 @@ const downvoteRecipe = async (recipeId: string, user: JwtPayload) => {
     throw new Error('Recipe not found');
   }
 
-  // Check if the user has already downvoted the recipe
-  if (recipe.downvote.includes(user.userId)) {
-    throw new Error('You have already downvoted this recipe');
-  }
-
   // If the user has upvoted the recipe before, remove them from the upvote array
+  let userHasUpvoted = false;
   if (recipe.upvote.includes(user.userId)) {
+    userHasUpvoted = true;
     await RecipeModel.findByIdAndUpdate(
       recipeId,
       {
@@ -65,6 +77,16 @@ const downvoteRecipe = async (recipeId: string, user: JwtPayload) => {
       },
       { new: true },
     );
+  }
+
+  // If the user hasn't upvoted and the downvote array is already empty, throw an error
+  if (!userHasUpvoted && recipe.downvote.length === 0) {
+    throw new Error('Downvote is already zero.');
+  }
+
+  // Check if the user has already downvoted the recipe
+  if (recipe.downvote.includes(user.userId)) {
+    throw new Error('You have already downvoted this recipe');
   }
 
   // Add the userId to the downvote array
@@ -134,10 +156,33 @@ const commentRecipe = async (
   return updatedRecipe;
 };
 
+const getAllRecipies = async () => {
+  const result = await RecipeModel.find({ isPublished: true });
+
+  return result;
+};
+
+const getSingleRecipe = async (id: string) => {
+  const result = await RecipeModel.findById(id);
+
+  const postOwner = await UserModel.findById(result?.user);
+
+  return { result, postOwner };
+};
+
+const deleteRecipe = async (recipeId: string) => {
+  const result = await RecipeModel.findByIdAndDelete(recipeId);
+
+  return result;
+};
+
 export const RecipeServices = {
   createRecipe,
   upvoteRecipe,
   downvoteRecipe,
   rateRecipe,
   commentRecipe,
+  deleteRecipe,
+  getAllRecipies,
+  getSingleRecipe,
 };

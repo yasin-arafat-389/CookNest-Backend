@@ -66,10 +66,43 @@ const commentRecipe: RequestHandler = async (req, res, next) => {
   }
 };
 
+const deleteRecipe: RequestHandler = async (req, res, next) => {
+  try {
+    const result = await RecipeServices.deleteRecipe(req.params.recipeId);
+
+    sendResponse(res, result, 'Deleted Successfully');
+  } catch (error) {
+    next(error);
+  }
+};
+
+const getAllRecipe: RequestHandler = async (req, res, next) => {
+  try {
+    const result = await RecipeServices.getAllRecipies();
+
+    sendResponse(res, result, 'Fetched Successfully');
+  } catch (error) {
+    next(error);
+  }
+};
+
+const getSingleRecipe: RequestHandler = async (req, res, next) => {
+  try {
+    const result = await RecipeServices.getSingleRecipe(req.params.recipeId);
+
+    sendResponse(res, result, 'Fetched Successfully');
+  } catch (error) {
+    next(error);
+  }
+};
+
 export const RecipeControllers = {
   createRecipe,
   upvoteRecipe,
   downvoteRecipe,
   rateRecipe,
   commentRecipe,
+  deleteRecipe,
+  getAllRecipe,
+  getSingleRecipe,
 };

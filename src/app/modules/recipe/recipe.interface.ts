@@ -9,6 +9,6 @@ export type TRecipe = {
     { id: string; name: string; profilePicture: string; comment: string },
   ];
   rating: [{ id: string; rating: number }];
-  isDeleted: boolean;
+  isPublished: boolean;
   isPremium: boolean;
 };

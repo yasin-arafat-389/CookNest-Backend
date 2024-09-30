@@ -41,10 +41,10 @@ const RecipeSchema = new mongoose.Schema<TRecipe>(
       required: true,
       default: [],
     },
-    isDeleted: {
+    isPublished: {
       type: Boolean,
       required: true,
-      default: false,
+      default: true,
     },
     isPremium: {
       type: Boolean,

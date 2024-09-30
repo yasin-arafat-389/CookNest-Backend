@@ -1,17 +1,10 @@
 import express from 'express';
 import { RecipeControllers } from './recipe.controller';
 import auth from '../../middlewares/auth/auth';
-import validateRequest from '../../middlewares/validate';
-import { validateRecipeSchema } from './recipe.validation';
 
 const router = express.Router();
 
-router.post(
-  '/create-recipe',
-  auth('user'),
-  validateRequest(validateRecipeSchema.createRecipeValidation),
-  RecipeControllers.createRecipe,
-);
+router.post('/create-recipe', auth('user'), RecipeControllers.createRecipe);
 
 router.post(
   '/upvote-recipe/:recipeId',
@@ -35,6 +28,20 @@ router.post(
   '/comment-recipe/:recipeId',
   auth('user'),
   RecipeControllers.commentRecipe,
+);
+
+router.delete(
+  '/delete-recipe/:recipeId',
+  auth('user', 'admin'),
+  RecipeControllers.deleteRecipe,
+);
+
+router.get('/get-all-recipe', RecipeControllers.getAllRecipe);
+
+router.get(
+  '/get-single-recipe/:recipeId',
+  auth('user', 'admin'),
+  RecipeControllers.getSingleRecipe,
 );
 
 export const RecipeRoutes = router;

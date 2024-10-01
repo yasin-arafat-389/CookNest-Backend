@@ -110,6 +110,36 @@ const updateCommentRecipe: RequestHandler = async (req, res, next) => {
   }
 };
 
+const getAllRecipiesForAdmin: RequestHandler = async (req, res, next) => {
+  try {
+    const result = await RecipeServices.getAllRecipiesForAdmin();
+
+    sendResponse(res, result, 'Fetched Successfully');
+  } catch (error) {
+    next(error);
+  }
+};
+
+const unpublishRecipe: RequestHandler = async (req, res, next) => {
+  try {
+    const result = await RecipeServices.unpublishRecipe(req.params.id);
+
+    sendResponse(res, result, 'Unpublished Successfully');
+  } catch (error) {
+    next(error);
+  }
+};
+
+const publishRecipe: RequestHandler = async (req, res, next) => {
+  try {
+    const result = await RecipeServices.publishRecipe(req.params.id);
+
+    sendResponse(res, result, 'Published Successfully');
+  } catch (error) {
+    next(error);
+  }
+};
+
 export const RecipeControllers = {
   createRecipe,
   upvoteRecipe,
@@ -120,4 +150,7 @@ export const RecipeControllers = {
   getAllRecipe,
   getSingleRecipe,
   updateCommentRecipe,
+  getAllRecipiesForAdmin,
+  unpublishRecipe,
+  publishRecipe,
 };

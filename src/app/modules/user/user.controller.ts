@@ -55,10 +55,47 @@ const getSingleUser: RequestHandler = async (req, res, next) => {
   }
 };
 
+const getUserInfo: RequestHandler = async (req, res, next) => {
+  try {
+    const result = await UserServices.getUserInfo(req.params.id);
+
+    sendResponse(res, result, 'Status fetched successfully');
+  } catch (error) {
+    next(error);
+  }
+};
+
+const becomePremiumMember: RequestHandler = async (req, res, next) => {
+  try {
+    const result = await UserServices.becomePremiumMember(req.body);
+
+    sendResponse(res, result, 'Premium membership obtained successfully');
+  } catch (error) {
+    next(error);
+  }
+};
+
+const paymentConfirmation: RequestHandler = async (req, res, next) => {
+  try {
+    const { transactionId } = req.query;
+
+    const result = await UserServices.paymentConfirmation(
+      transactionId as string,
+    );
+
+    res.send(result);
+  } catch (error) {
+    next(error);
+  }
+};
+
 export const UserControllers = {
   createUser,
   updateUser,
   followUser,
   unfollowUser,
   getSingleUser,
+  getUserInfo,
+  becomePremiumMember,
+  paymentConfirmation,
 };

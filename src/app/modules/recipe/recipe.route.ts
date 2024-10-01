@@ -42,12 +42,34 @@ router.delete(
   RecipeControllers.deleteRecipe,
 );
 
-router.get('/get-all-recipe', RecipeControllers.getAllRecipe);
+router.get(
+  '/get-all-recipe',
+  auth('user', 'admin'),
+  RecipeControllers.getAllRecipe,
+);
 
 router.get(
   '/get-single-recipe/:recipeId',
   auth('user', 'admin'),
   RecipeControllers.getSingleRecipe,
+);
+
+router.get(
+  '/get-all-recipies-for-admin',
+  auth('admin'),
+  RecipeControllers.getAllRecipiesForAdmin,
+);
+
+router.post(
+  '/unpublish-recipe/:id',
+  auth('admin'),
+  RecipeControllers.unpublishRecipe,
+);
+
+router.post(
+  '/publish-recipe/:id',
+  auth('admin'),
+  RecipeControllers.publishRecipe,
 );
 
 export const RecipeRoutes = router;

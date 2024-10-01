@@ -1,6 +1,7 @@
 import { JwtPayload } from 'jsonwebtoken';
 import { TUser } from './user.interface';
 import UserModel from './user.model';
+import RecipeModel from '../recipe/recipe.model';
 
 const createUser = async (payload: TUser) => {
   const isUserAlreadyExists = await UserModel.findOne({ email: payload.email });
@@ -11,6 +12,13 @@ const createUser = async (payload: TUser) => {
 
   const result = await UserModel.create(payload);
   return result;
+};
+
+const getSingleUser = async (id: string) => {
+  const userData = await UserModel.findById(id);
+  const userPostedRecipeData = await RecipeModel.find({ user: id });
+
+  return { userData, userPostedRecipeData };
 };
 
 const updateProfile = async (userId: string, updateData: Partial<TUser>) => {
@@ -106,4 +114,5 @@ export const UserServices = {
   updateProfile,
   addToFollowing,
   removeFromFollowing,
+  getSingleUser,
 };

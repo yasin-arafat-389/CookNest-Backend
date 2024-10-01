@@ -96,6 +96,20 @@ const getSingleRecipe: RequestHandler = async (req, res, next) => {
   }
 };
 
+const updateCommentRecipe: RequestHandler = async (req, res, next) => {
+  try {
+    const result = await RecipeServices.editRecipeComment(
+      req.params.recipeId,
+      req.params.commentId,
+      req.body.comment,
+    );
+
+    sendResponse(res, result, 'Fetched Successfully');
+  } catch (error) {
+    next(error);
+  }
+};
+
 export const RecipeControllers = {
   createRecipe,
   upvoteRecipe,
@@ -105,4 +119,5 @@ export const RecipeControllers = {
   deleteRecipe,
   getAllRecipe,
   getSingleRecipe,
+  updateCommentRecipe,
 };

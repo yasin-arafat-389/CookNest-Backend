@@ -45,9 +45,20 @@ const unfollowUser: RequestHandler = async (req, res, next) => {
   }
 };
 
+const getSingleUser: RequestHandler = async (req, res, next) => {
+  try {
+    const result = await UserServices.getSingleUser(req.params.id);
+
+    sendResponse(res, result, 'User fetched successfully');
+  } catch (error) {
+    next(error);
+  }
+};
+
 export const UserControllers = {
   createUser,
   updateUser,
   followUser,
   unfollowUser,
+  getSingleUser,
 };

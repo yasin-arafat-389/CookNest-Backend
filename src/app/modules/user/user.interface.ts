@@ -8,4 +8,5 @@ export type TUser = {
   premiumMembership: boolean;
   followers: string[];
   following: string[];
+  isBlocked: boolean;
 };

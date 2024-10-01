@@ -30,6 +30,12 @@ router.post(
   RecipeControllers.commentRecipe,
 );
 
+router.post(
+  '/update-comment-recipe/:recipeId/:commentId',
+  auth('user'),
+  RecipeControllers.updateCommentRecipe,
+);
+
 router.delete(
   '/delete-recipe/:recipeId',
   auth('user', 'admin'),

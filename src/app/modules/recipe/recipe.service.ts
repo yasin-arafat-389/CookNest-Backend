@@ -176,6 +176,29 @@ const deleteRecipe = async (recipeId: string) => {
   return result;
 };
 
+const editRecipeComment = async (
+  recipeId: string,
+  commentId: string,
+  newCommentText: string,
+) => {
+  const updatedRecipe = await RecipeModel.findOneAndUpdate(
+    {
+      _id: recipeId,
+      'comments._id': commentId,
+    },
+    {
+      $set: { 'comments.$.comment': newCommentText },
+    },
+    { new: true },
+  );
+
+  if (!updatedRecipe) {
+    throw new Error('Recipe or comment not found');
+  }
+
+  return updatedRecipe;
+};
+
 export const RecipeServices = {
   createRecipe,
   upvoteRecipe,
@@ -185,4 +208,5 @@ export const RecipeServices = {
   deleteRecipe,
   getAllRecipies,
   getSingleRecipe,
+  editRecipeComment,
 };

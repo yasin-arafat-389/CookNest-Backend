@@ -199,6 +199,32 @@ const editRecipeComment = async (
   return updatedRecipe;
 };
 
+const getAllRecipiesForAdmin = async () => {
+  const result = await RecipeModel.find();
+
+  return result;
+};
+
+const unpublishRecipe = async (id: string) => {
+  const recipe = await RecipeModel.findOneAndUpdate(
+    { _id: id },
+    { isPublished: false },
+    { new: true },
+  );
+
+  return recipe;
+};
+
+const publishRecipe = async (id: string) => {
+  const recipe = await RecipeModel.findOneAndUpdate(
+    { _id: id },
+    { isPublished: true },
+    { new: true },
+  );
+
+  return recipe;
+};
+
 export const RecipeServices = {
   createRecipe,
   upvoteRecipe,
@@ -209,4 +235,7 @@ export const RecipeServices = {
   getAllRecipies,
   getSingleRecipe,
   editRecipeComment,
+  getAllRecipiesForAdmin,
+  unpublishRecipe,
+  publishRecipe,
 };

@@ -89,6 +89,89 @@ const paymentConfirmation: RequestHandler = async (req, res, next) => {
   }
 };
 
+const getAllUser: RequestHandler = async (req, res, next) => {
+  try {
+    const result = await UserServices.getAllUser();
+
+    res.send(result);
+  } catch (error) {
+    next(error);
+  }
+};
+
+const blockUser: RequestHandler = async (req, res, next) => {
+  try {
+    const result = await UserServices.blockUser(req.params.id);
+
+    res.send(result);
+  } catch (error) {
+    next(error);
+  }
+};
+
+const unblockUser: RequestHandler = async (req, res, next) => {
+  try {
+    const result = await UserServices.unblockUser(req.params.id);
+
+    res.send(result);
+  } catch (error) {
+    next(error);
+  }
+};
+
+const deleteUser: RequestHandler = async (req, res, next) => {
+  try {
+    const result = await UserServices.deleteUser(req.params.id);
+
+    res.send(result);
+  } catch (error) {
+    next(error);
+  }
+};
+
+const createAdmin: RequestHandler = async (req, res, next) => {
+  try {
+    const result = await UserServices.createAdmin(req.body);
+
+    res.send(result);
+  } catch (error) {
+    next(error);
+  }
+};
+
+const getAllAdmin: RequestHandler = async (req, res, next) => {
+  try {
+    const result = await UserServices.getAllAdmin();
+
+    res.send(result);
+  } catch (error) {
+    next(error);
+  }
+};
+
+const updateAdmin: RequestHandler = async (req, res, next) => {
+  try {
+    const result = await UserServices.updateAdminProfile(
+      req.params.userId,
+      req.body,
+    );
+
+    res.send(result);
+  } catch (error) {
+    next(error);
+  }
+};
+
+const deleteAdmin: RequestHandler = async (req, res, next) => {
+  try {
+    const result = await UserServices.deleteAdmin(req.params.id);
+
+    res.send(result);
+  } catch (error) {
+    next(error);
+  }
+};
+
 export const UserControllers = {
   createUser,
   updateUser,
@@ -98,4 +181,12 @@ export const UserControllers = {
   getUserInfo,
   becomePremiumMember,
   paymentConfirmation,
+  getAllUser,
+  blockUser,
+  deleteUser,
+  unblockUser,
+  createAdmin,
+  getAllAdmin,
+  updateAdmin,
+  deleteAdmin,
 };

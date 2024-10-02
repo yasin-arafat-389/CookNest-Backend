@@ -39,4 +39,24 @@ router.post(
 
 router.post('/confirmation', UserControllers.paymentConfirmation);
 
+router.get('/get-all-user', auth('admin'), UserControllers.getAllUser);
+
+router.post('/block-user/:id', auth('admin'), UserControllers.blockUser);
+
+router.post('/unblock-user/:id', auth('admin'), UserControllers.unblockUser);
+
+router.delete('/delete-user/:id', auth('admin'), UserControllers.deleteUser);
+
+router.post('/create-admin', auth('admin'), UserControllers.createAdmin);
+
+router.get('/get-all-admin', auth('admin'), UserControllers.getAllAdmin);
+
+router.post(
+  '/update-admin/:userId',
+  auth('admin'),
+  UserControllers.updateAdmin,
+);
+
+router.delete('/delete-admin/:id', auth('admin'), UserControllers.deleteAdmin);
+
 export const UserRoutes = router;

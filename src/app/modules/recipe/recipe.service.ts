@@ -66,10 +66,7 @@ const downvoteRecipe = async (recipeId: string, user: JwtPayload) => {
     throw new Error('Recipe not found');
   }
 
-  // If the user has upvoted the recipe before, remove them from the upvote array
-  let userHasUpvoted = false;
   if (recipe.upvote.includes(user.userId)) {
-    userHasUpvoted = true;
     await RecipeModel.findByIdAndUpdate(
       recipeId,
       {
@@ -77,11 +74,6 @@ const downvoteRecipe = async (recipeId: string, user: JwtPayload) => {
       },
       { new: true },
     );
-  }
-
-  // If the user hasn't upvoted and the downvote array is already empty, throw an error
-  if (!userHasUpvoted && recipe.downvote.length === 0) {
-    throw new Error('Downvote is already zero.');
   }
 
   // Check if the user has already downvoted the recipe

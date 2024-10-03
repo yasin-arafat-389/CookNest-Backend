@@ -50,6 +50,39 @@ const login = async (payload: TLoginUser) => {
   };
 };
 
+const changePassword = async (payload: {
+  email: string;
+  password: string;
+  newPassword: string;
+}) => {
+  const user = await UserModel.findOne({ email: payload.email });
+
+  if (!user) {
+    throw new Error('User not found.');
+  }
+
+  const matchPassword = await bcrypt.compare(payload.password, user.password);
+
+  if (!matchPassword) {
+    throw new Error('You have entered the wrong current password!');
+  }
+
+  const newHashedPassword = await bcrypt.hash(
+    payload.newPassword,
+    Number(config.bcrypt_salt_rounds),
+  );
+
+  await UserModel.findOneAndUpdate(
+    {
+      email: payload.email,
+    },
+    {
+      password: newHashedPassword,
+    },
+  );
+};
+
 export const AuthServices = {
   login,
+  changePassword,
 };

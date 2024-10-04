@@ -76,6 +76,11 @@ Premium membership unlocks exclusive content, accessible through a subscription-
    ACCESS_TOKEN_EXPIRES_IN=1d
    JWT_REFRESH_TOKEN_SECRET=your token secret
    REFRESH_TOKEN_EXPIRES_IN=7d
+   RESET_PASS_UI_LINK=your reset password ui link
+   SMTP_HOST=your smtp host
+   SMTP_PORT=your smtp port
+   SMTP_USER=your smtp user name
+   SMTP_PASS=your smtp password
    STORE_ID=aamarpay store id
    SIGNATURE_KEY=aamarpay signature key
    PAYMENT_URL=aamarpay payment url
@@ -95,117 +100,123 @@ Once the server is running, you can use the following endpoints:
 
 1. **User login**
 
-- **Route**: `POST /api/v1/auth/login`
+   - **Route**: `POST /api/v1/auth/login`
 
 2. **Change password**
 
-- **Route**: `POST /api/v1/auth/change-password`
+   - **Route**: `POST /api/v1/auth/change-password`
 
-3. **Create User**
+3. **Forgot Password**
+
+   - **Route**: `POST /api/v1/auth/forgot-password`
+
+4. **Create User**
 
    - **Route**: `POST /api/v1/users/create-user`
 
-4. **Update User**
+5. **Update User**
 
    - **Route**: `PUT /api/v1/users/update-user/:id`
 
-5. **Follow User**
+6. **Follow User**
 
    - **Route**: `POST /api/v1/users/follow-user/:id`
 
-6. **Unfollow User**
+7. **Unfollow User**
 
    - **Route**: `POST /api/v1/users/unfollow-user/:id`
 
-7. **Get Single User**
+8. **Get Single User**
 
    - **Route**: `GET /api/v1/users/get-single-user/:id`
 
-8. **Get User Info**
+9. **Get User Info**
 
    - **Route**: `GET /api/v1/users/get-user-info/:id`
 
-9. **Become Premium Member**
+10. **Become Premium Member**
 
-   - **Route**: `POST /api/v1/users/become-premium-member`
+    - **Route**: `POST /api/v1/users/become-premium-member`
 
-10. **Payment Confirmation**
+11. **Payment Confirmation**
 
-- **Route**: `POST /api/v1/users/confirmation`
+    - **Route**: `POST /api/v1/users/confirmation`
 
-11. **Get All Users**
+12. **Get All Users**
 
-- **Route**: `GET /api/v1/users/get-all-user`
+    - **Route**: `GET /api/v1/users/get-all-user`
 
-12. **Block User**
+13. **Block User**
 
     - **Route**: `POST /api/v1/users/block-user/:id`
 
-13. **Unblock User**
+14. **Unblock User**
 
     - **Route**: `POST /api/v1/users/unblock-user/:id`
 
-14. **Delete User**
+15. **Delete User**
 
     - **Route**: `DELETE /api/v1/users/delete-user/:id`
 
-15. **Create Admin**
+16. **Create Admin**
 
     - **Route**: `POST /api/v1/users/create-admin`
 
-16. **Get All Admins**
+17. **Get All Admins**
 
     - **Route**: `GET /api/v1/users/get-all-admin`
 
-17. **Update Admin**
+18. **Update Admin**
 
     - **Route**: `POST /api/v1/users/update-admin/:userId`
 
-18. **Delete Admin**
+19. **Delete Admin**
+
     - **Route**: `DELETE /api/v1/users/delete-admin/:id`
-19. **Create Recipe**
+
+20. **Create Recipe**
 
     - **Route**: `POST /api/v1/recipes/create-recipe`
 
-20. **Upvote Recipe**
+21. **Upvote Recipe**
 
     - **Route**: `POST /api/v1/recipes/upvote-recipe/:recipeId`
 
-21. **Downvote Recipe**
+22. **Downvote Recipe**
 
     - **Route**: `POST /api/v1/recipes/downvote-recipe/:recipeId`
 
-22. **Rate Recipe**
+23. **Rate Recipe**
 
     - **Route**: `POST /api/v1/recipes/rate-recipe/:recipeId`
 
-23. **Comment Recipe**
+24. **Comment Recipe**
 
     - **Route**: `POST /api/v1/recipes/comment-recipe/:recipeId`
 
-24. **Update Comment on Recipe**
+25. **Update Comment on Recipe**
 
     - **Route**: `POST /api/v1/recipes/update-comment-recipe/:recipeId/:commentId`
 
-25. **Delete Recipe**
+26. **Delete Recipe**
 
     - **Route**: `DELETE /api/v1/recipes/delete-recipe/:recipeId`
 
-26. **Get All Recipes**
+27. **Get All Recipes**
 
     - **Route**: `GET /api/v1/recipes/get-all-recipe`
 
-27. **Get Single Recipe**
+28. **Get Single Recipe**
 
     - **Route**: `GET /api/v1/recipes/get-single-recipe/:recipeId`
 
-28. **Get All Recipes for Admin**
+29. **Get All Recipes for Admin**
 
     - **Route**: `GET /api/v1/recipes/get-all-recipies-for-admin`
 
-29. **Unpublish Recipe**
+30. **Unpublish Recipe**
 
     - **Route**: `POST /api/v1/recipes/unpublish-recipe/:id`
 
-30. **Publish Recipe**
+31. **Publish Recipe**
     - **Route**: `POST /api/v1/recipes/publish-recipe/:id`

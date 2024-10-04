@@ -29,7 +29,19 @@ const changePassword: RequestHandler = async (req, res, next) => {
   }
 };
 
+const forgotPassword: RequestHandler = async (req, res, next) => {
+  try {
+    const email = req.body.email;
+    const result = await AuthServices.forgotPassword(email);
+
+    sendResponse(res, result, 'Reset link is generated succesfully!');
+  } catch (error) {
+    next(error);
+  }
+};
+
 export const AuthControllers = {
   login,
   changePassword,
+  forgotPassword,
 };

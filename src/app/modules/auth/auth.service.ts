@@ -4,6 +4,7 @@ import bcrypt from 'bcrypt';
 import { createToken } from './auth.utils';
 import config from '../../config';
 import { JwtPayload } from 'jsonwebtoken';
+import { sendEmail } from '../../utils/sendEmail/sendEmail';
 
 const login = async (payload: TLoginUser) => {
   const user = await UserModel.findOne({ email: payload.email }).select(
@@ -82,7 +83,31 @@ const changePassword = async (payload: {
   );
 };
 
+const forgotPassword = async (email: string) => {
+  const user = await UserModel.findOne({ email: email });
+
+  if (!user) {
+    throw new Error('You are not a registered user yet!');
+  }
+
+  const jwtPayload = {
+    userEmail: user?.email,
+    role: user?.role,
+  };
+
+  const resetToken = createToken(
+    jwtPayload,
+    config.jwt_acess_token_secret as string,
+    '10m',
+  );
+
+  const resetUILink = `${config.reset_pass_ui_link}?email=${user?.email}&token=${resetToken} `;
+
+  sendEmail(user?.email as string, resetUILink);
+};
+
 export const AuthServices = {
   login,
   changePassword,
+  forgotPassword,
 };

@@ -29,7 +29,11 @@ router.get(
   UserControllers.getSingleUser,
 );
 
-router.get('/get-user-info/:id', auth('user'), UserControllers.getUserInfo);
+router.get(
+  '/get-user-info/:id',
+  auth('user', 'admin'),
+  UserControllers.getUserInfo,
+);
 
 router.post(
   '/become-premium-member',

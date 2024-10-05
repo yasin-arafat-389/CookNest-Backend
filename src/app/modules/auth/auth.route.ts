@@ -27,8 +27,89 @@ router.post('/forgot-password', AuthControllers.forgotPassword);
 router.get('/reset-password', (req, res) => {
   const { email, token } = req.query;
 
-  // Render the reset password form
-  res.render('reset-password', { email, token });
+  // Make sure the email and token are present
+  if (!email || !token) {
+    return res.status(400).send('Email or token is missing');
+  }
+
+  // Directly render HTML with inline CSS
+  res.send(`
+    <!DOCTYPE html>
+    <html lang="en">
+      <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Reset Password</title>
+        <style>
+          body {
+            font-family: Arial, sans-serif;
+            background-color: #f5f5f5;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+          }
+          .container {
+            background-color: #ffffff;
+            padding: 20px;
+            border-radius: 5px;
+            box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+            width: 300px;
+            text-align: center;
+          }
+          h1 {
+            font-size: 24px;
+            margin-bottom: 20px;
+            color: #333333;
+          }
+          label {
+            font-size: 14px;
+            display: block;
+            margin-bottom: 8px;
+            color: #333333;
+          }
+          input[type="password"] {
+            width: 100%;
+            padding: 8px;
+            margin-bottom: 15px;
+            border: 1px solid #cccccc;
+            border-radius: 4px;
+            box-sizing: border-box;
+          }
+          button {
+            background-color: #007bff;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 16px;
+          }
+          button:hover {
+            background-color: #0056b3;
+          }
+        </style>
+      </head>
+      <body>
+        <div class="container">
+          <h1>Reset Your Password</h1>
+          <form action="/api/v1/auth/reset-password" method="POST">
+            <!-- Hidden inputs for email and token -->
+            <input type="hidden" name="email" value="${email}" />
+            <input type="hidden" name="token" value="${token}" />
+
+            <!-- Input for new password -->
+            <label for="newPassword">Enter New Password:</label>
+            <input type="password" id="newPassword" name="newPassword" required />
+
+            <!-- Submit button -->
+            <button type="submit">Reset Password</button>
+          </form>
+        </div>
+      </body>
+    </html>
+  `);
 });
 
 // Handle form submission for password reset

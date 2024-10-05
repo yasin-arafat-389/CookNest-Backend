@@ -12,15 +12,26 @@ export const sendEmail = async (to: string, html: string) => {
     },
   } as TransportOptions);
 
-  await transporter.sendMail({
+  const mailData = {
     from: {
       name: 'CookNest',
-      address: process.env.smtp_user as string,
-    }, // sender address
+      address: config.smtp_user as string,
+    },
 
-    to, // list of receivers
-    subject: 'Reset your password within ten minutes!', // Subject line
-    text: '', // plain text body
-    html, // html body
+    to,
+    subject: 'Reset your password within ten minutes!',
+    text: '',
+    html,
+  };
+
+  await new Promise((resolve, reject) => {
+    transporter.sendMail(mailData, (err, info) => {
+      if (err) {
+        console.error(err);
+        reject(err);
+      } else {
+        resolve(info);
+      }
+    });
   });
 };

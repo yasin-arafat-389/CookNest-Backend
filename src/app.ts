@@ -4,7 +4,6 @@ import express, { Application, Request, Response } from 'express';
 import globalErrorHandler from './app/utils/globalErrorHandler/globalErrorHandler';
 import router from './app/routes';
 import bodyParser from 'body-parser';
-import path from 'path';
 
 const app: Application = express();
 
@@ -17,13 +16,6 @@ app.use(
     credentials: true,
   }),
 );
-
-// Setting the view engine to EJS
-app.set('view engine', 'ejs');
-app.set('views', path.join(__dirname, 'app/views'));
-
-// Serve static files (if you need CSS, JS files)
-app.use(express.static(path.join(__dirname, 'public')));
 
 // application routes
 app.use('/api/v1/', router);

@@ -1,4 +1,4 @@
-# CookNest Recipe Sahring Platform (Backend)
+# CookNest Recipe Sharing Platform (Backend)
 
 ## Project Overview
 

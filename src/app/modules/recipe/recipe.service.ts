@@ -154,6 +154,15 @@ const getAllRecipies = async () => {
   return result;
 };
 
+const getNonPremiumRecipies = async () => {
+  const result = await RecipeModel.find({
+    isPublished: true,
+    isPremium: false,
+  }).limit(3);
+
+  return result;
+};
+
 const getSingleRecipe = async (id: string) => {
   const result = await RecipeModel.findById(id);
 
@@ -230,4 +239,5 @@ export const RecipeServices = {
   getAllRecipiesForAdmin,
   unpublishRecipe,
   publishRecipe,
+  getNonPremiumRecipies,
 };

@@ -48,6 +48,8 @@ router.get(
   RecipeControllers.getAllRecipe,
 );
 
+router.get('/get-non-premium-recipe', RecipeControllers.getNonPremiumRecipies);
+
 router.get(
   '/get-single-recipe/:recipeId',
   auth('user', 'admin'),

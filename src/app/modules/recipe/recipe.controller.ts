@@ -86,6 +86,16 @@ const getAllRecipe: RequestHandler = async (req, res, next) => {
   }
 };
 
+const getNonPremiumRecipies: RequestHandler = async (req, res, next) => {
+  try {
+    const result = await RecipeServices.getNonPremiumRecipies();
+
+    sendResponse(res, result, 'Fetched Successfully');
+  } catch (error) {
+    next(error);
+  }
+};
+
 const getSingleRecipe: RequestHandler = async (req, res, next) => {
   try {
     const result = await RecipeServices.getSingleRecipe(req.params.recipeId);
@@ -153,4 +163,5 @@ export const RecipeControllers = {
   getAllRecipiesForAdmin,
   unpublishRecipe,
   publishRecipe,
+  getNonPremiumRecipies,
 };
